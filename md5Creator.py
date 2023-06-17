@@ -25,15 +25,15 @@ for file in files:
     p = Path(file)
     c.execute('select * from MD5 where Filename=? AND Fullpath=?',(p.name, str(p)))
     rst = c.fetchone()
-    if not rst:
-        print('MD5 Missing')
+    if not rst or not rst[1] == hashlib.md5(open(file,'rb').read()).hexdigest():
+        # print('MD5 Missing')
         lst.append(file)
-    elif not rst[1] == hashlib.md5(open(file,'rb').read()).hexdigest():
-        print('MD5 False')
-        lst.append(file)
-    else:
-        print(f'MD5 True -> {rst[1]}')
+    # else:
+    #     print(f'MD5 True -> {rst[1]}')
 cx.close()
 
 if lst:
-    print(lst)
+    for file in lst:
+        proc = subprocess.Popen(
+            ['git', 'add', file], cwd=PADRAO)
+    proc.wait()

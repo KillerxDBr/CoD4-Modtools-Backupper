@@ -216,13 +216,12 @@ pyrightconfig.json
 /export_errors
 /PB
 /DirectX
-/players/profiles
+/players
 *.dll
 *.d3dbsp
 /miles
 /bin/maya
 *.mb
-*.ma
 /pbgame.htm
 /localization.txt
 /cod4.ico
@@ -231,8 +230,16 @@ pyrightconfig.json
 /End User License Agreement (Release of Map Tools to the Public for Call of Duty 4-PC).doc
 *.vdf
 /eula.txt
-/raw
-!/raw/soundaliases
+/raw/*
+!/raw/soundaliases/
+!/raw/weapons/
+!/raw/maps/
 /ignoredFiles.txt
 /Mods/ModWarfare
 /Mods/customMaps
+/model_export/base_character
+/model_export/characters/sp_characters_arab_regular
+/model_export/modern_weapons
+/model_export/viewmodels
+/xanim_export/viewmodels/M16
+/.vscode
