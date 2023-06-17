@@ -38,4 +38,4 @@ if __name__ == '__main__':
             proc = subprocess.Popen(
                 ['git', 'add', file], cwd=PADRAO)
         proc.wait()
-        print('Use "git commit -a" to commit all modifications')
+        print('Use "git commit -a -m <message>" to commit all modifications')
