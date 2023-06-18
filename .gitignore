@@ -206,8 +206,12 @@ pyrightconfig.json
 
 # End of https://www.toptal.com/developers/gitignore/api/python,visualstudiocode,executable
 
+
+
+# COD4 Ignores
 *.iwd
 *.ff
+*.iwi
 /Docs
 /convertcache
 /assetsrccache
@@ -230,10 +234,9 @@ pyrightconfig.json
 /End User License Agreement (Release of Map Tools to the Public for Call of Duty 4-PC).doc
 *.vdf
 /eula.txt
-/raw/*
-!/raw/soundaliases/
-!/raw/weapons/
-!/raw/maps/
+/raw/material_properties
+/raw/materials
+/raw/images
 /ignoredFiles.txt
 /Mods/ModWarfare
 /Mods/customMaps
@@ -243,3 +246,18 @@ pyrightconfig.json
 /model_export/viewmodels
 /xanim_export/viewmodels/M16
 /.vscode
+/README-ModTools.md
+/raw/shader_bin
+/raw/techsets
+/raw/techniques
+/raw/statemaps
+/raw/xmodel
+/raw/xmodelalias
+/raw/xmodelparts
+/raw/xmodelpieces
+/raw/xmodelsurfs
+raw/animtrees/artillery_flakvierling.atr
+raw/animtrees/desert_props.atr
+raw/animtrees/embassy.atr
+raw/animtrees/moscow.atr
+raw/language.cfg

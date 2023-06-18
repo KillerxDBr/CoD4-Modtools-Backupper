@@ -29,13 +29,13 @@ if __name__ == '__main__':
         if not rst or not rst[1] == hashlib.md5(open(file, 'rb').read()).hexdigest():
             # print('MD5 Missing')
             lst.append(file)
-        # else:
-        #     print(f'MD5 True -> {rst[1]}')
+        else:
+            print(f'MD5 True -> {file}')
     cx.close()
 
     if lst:
-        for file in lst:
-            proc = subprocess.Popen(
-                ['git', 'add', file], cwd=PADRAO)
-            proc.wait()
-        print('Use "git commit -a -m <message>" to commit all modifications')
+        if input(f'Do you want do add those files to the repository?\n{" ".join(lst)}\n[y]es or [n]o: ').lower() == 'y':
+            for file in lst:
+                proc = subprocess.Popen(['git', 'add', file], cwd=PADRAO)
+                proc.wait()
+            print('Use "git commit -a -m <message>" to commit all modifications')
