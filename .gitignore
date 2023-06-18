@@ -256,11 +256,6 @@ pyrightconfig.json
 /xanim_export/viewmodels/M16
 /.vscode
 /README-ModTools.md
-raw/animtrees/artillery_flakvierling.atr
-raw/animtrees/desert_props.atr
-raw/animtrees/embassy.atr
-raw/animtrees/moscow.atr
-raw/language.cfg
 /zone
 /bin/AssetManager
 /bin/CoD4CompileTools

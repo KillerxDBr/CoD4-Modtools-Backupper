@@ -26,6 +26,8 @@ if __name__ == '__main__':
         c.execute('select * from MD5 where Filename=? AND Fullpath=?',
                   (p.name, str(p)))
         rst = c.fetchone()
+        if rst and (rst[4] == p.stat().st_size == 0):
+            continue
         if not rst or not rst[1] == hashlib.md5(open(file, 'rb').read()).hexdigest():
             # print('MD5 Missing')
             lst.append(file)
