@@ -36,7 +36,8 @@ if __name__ == '__main__':
     cx.close()
 
     if lst:
-        if input(f'Do you want do add those files to the repository?\n{" ".join(lst)}\n[y]es or [n]o: ').lower() == 'y':
+        listStr = "\n".join(lst)
+        if input(f'Do you want do add those files to the repository?\n{listStr}\n[y]es or [n]o: ').lower() == 'y':
             for file in lst:
                 proc = subprocess.Popen(['git', 'add', file], cwd=PADRAO)
                 proc.wait()
