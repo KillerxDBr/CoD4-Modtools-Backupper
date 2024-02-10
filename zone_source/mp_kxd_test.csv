@@ -1,0 +1,12 @@
+ignore,code_post_gfx_mp,,
+ignore,common_mp,,
+ignore,localized_code_post_gfx_mp
+ignore,localized_common_mp
+col_map_mp,maps/mp/mp_kxd_test.d3dbsp,,
+rawfile,maps/mp/mp_kxd_test.gsc,,
+impactfx,mp_kxd_test,,
+sound,common,mp_kxd_test,!all_mp
+sound,generic,mp_kxd_test,!all_mp
+sound,voiceovers,mp_kxd_test,!all_mp
+sound,multiplayer,mp_kxd_test,!all_mp
+include,mptypes_desert
