@@ -3,28 +3,39 @@ import tempfile
 import subprocess
 from pathlib import Path
 import sqlite3
+from time import perf_counter
+import sys
 
 if __name__ == '__main__':
-
-    PADRAO = Path(__file__).parent.resolve()
+    startTime = perf_counter()
+    if len(sys.argv) > 1:
+        cwd = Path(sys.argv[1]).resolve()
+        # print("Using ARGV")
+    else:
+        cwd = Path(__file__).parent.resolve()
+        # print("Using File Path")
 
     # git ls-files --other --exclude-standard
 
     with tempfile.TemporaryFile() as tempf:
         proc = subprocess.Popen(
             ['git', 'ls-files', '--other', '--exclude-standard'],
-            stdout=tempf, cwd=PADRAO)
-        proc.wait()
+            stdout=tempf, cwd=cwd)
+        if proc.wait() != 0:
+            print(f"{proc.returncode = }")
+            tempf.close()
+            exit(1)
         tempf.seek(0)
         files = ''.join([chr(x) for x in tempf.read()]).splitlines()
 
-    cx = sqlite3.connect('md5.db')
-    c = cx.cursor()
-    originalFiles:list[list] = c.execute('Select * from MD5').fetchall()
-    cx.close()
+    con = sqlite3.connect(f'{cwd}/md5.db')
+    cur = con.cursor()
+    originalFiles:list[list] = cur.execute('Select * from MD5').fetchall()
+    cur.close()
+    con.close()
     filesToAdd = []
     for file in files:
-        file = file.replace('/','\\') #Remove after fix in database...
+        file = file.replace('/','\\') # TODO Remove after fix in database...
         existsOnDB: bool = False
         
         for originalFile in originalFiles:
@@ -43,27 +54,15 @@ if __name__ == '__main__':
         if not existsOnDB:
             print(f'Adding new File -> {file}')
             filesToAdd.append(file)
-        # if existsOnDB:
-        #     continue
-
-    #     c.execute('select * from MD5 where Filename=? AND Fullpath=?',
-    #               (p.name, str(p)))
-    #     rst = c.fetchone()
-    #     if rst and (rst[4] == p.stat().st_size == 0):
-    #         continue
-    #     if not rst or not rst[1] == hashlib.md5(open(file, 'rb').read()).hexdigest():
-    #         # print('MD5 Missing')
-    #         lst.append(file)
-    #     else:
-    #         print(f'MD5 True -> {file}')
-    # cx.close()
 
     if filesToAdd:
         nl = '\n'
         if input(f'{"="*30}\nDo you want do add those files to the repository?\n\n{nl.join(filesToAdd)}\n\n[y]es or [n]o: ').lower() == 'y':
             for file in filesToAdd:
-                proc = subprocess.Popen(['git', 'add', file], cwd=PADRAO)
+                proc = subprocess.Popen(['git', 'add', file], cwd=cwd)
                 proc.wait()
             print('Use "git commit -a -m <message>" to commit all modifications')
     else:
         print('No new or modified files to be added!')
+
+    print("Execution time: ",perf_counter() - startTime)
